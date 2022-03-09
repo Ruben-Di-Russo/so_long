@@ -6,7 +6,7 @@
 /*   By: rdi-russ <rdi-russ@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:39:56 by aannunzi          #+#    #+#             */
-/*   Updated: 2022/03/08 19:27:46 by rdi-russ         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:17:00 by rdi-russ         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct sl
 {
 	char	**map;
+	char	**maptemp;
 	void	*mlx;
 	void	*mlx_win;
     void	*lava;
@@ -41,13 +42,18 @@ typedef struct sl
 	int		map_ally;
 	int		x;
 	int		y;
+	int		cont;
 }				t_sl;
 
-void	ft_printwall(t_sl sl);
-void	ft_printback(t_sl sl);
-void	ft_printrogue(t_sl sl);
-void	ft_printexit(t_sl sl);
-void	ft_printcons(t_sl sl);
-void	ft_printenemy(t_sl sl);
+void	ft_printwall(t_sl *sl);
+void	ft_printback(t_sl *sl);
+void	ft_printrogue(t_sl *sl);
+void	ft_printexit(t_sl *sl);
+void	ft_printcons(t_sl *sl);
+void	ft_printenemy(t_sl *sl);
+void	move_w(t_sl *sl);
+void	move_a(t_sl *sl);
+void	move_s(t_sl *sl);
+void	move_d(t_sl *sl);
 
 #endif
