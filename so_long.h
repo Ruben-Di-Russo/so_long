@@ -6,7 +6,7 @@
 /*   By: rdi-russ <rdi-russ@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:39:56 by aannunzi          #+#    #+#             */
-/*   Updated: 2022/03/09 20:17:00 by rdi-russ         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:46:30 by rdi-russ         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct sl
 {
 	char	**map;
 	char	**maptemp;
+	char 	*line;
 	void	*mlx;
 	void	*mlx_win;
     void	*lava;
@@ -43,6 +44,11 @@ typedef struct sl
 	int		x;
 	int		y;
 	int		cont;
+	int		loop;
+	int		move;
+	int		colonne;
+	int		righe;
+	int 	fd;
 }				t_sl;
 
 void	ft_printwall(t_sl *sl);
@@ -55,5 +61,11 @@ void	move_w(t_sl *sl);
 void	move_a(t_sl *sl);
 void	move_s(t_sl *sl);
 void	move_d(t_sl *sl);
+void 	ft_initimage(t_sl *sl);
+int		lava_ani(t_sl *sl);
+char	**ft_mapread(char *path, t_sl *sl);
+char	*get_next_line(int fd, t_sl *sl);
+void	ft_checkcoll(t_sl *sl);
+void ft_freemap(t_sl *sl);
 
 #endif
