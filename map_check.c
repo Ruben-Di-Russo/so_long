@@ -6,7 +6,7 @@
 /*   By: rdi-russ <rdi-russ@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:53:47 by rdi-russ          #+#    #+#             */
-/*   Updated: 2022/03/15 20:53:53 by rdi-russ         ###   ########.fr       */
+/*   Updated: 2022/03/23 18:12:24 by rdi-russ         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	ft_checkmap(t_sl *sl)
 		sl->y = 0;
 		while (sl->y <= sl->colonne)
 		{
+			if (sl->map[sl->x][sl->y] != '\0' || sl->map[sl->x][sl->y] != '\n' || sl->map[sl->x][sl->y] != 'P' || sl->map[sl->x][sl->y] != '1' || sl->map[sl->x][sl->y] != '0' || sl->map[sl->x][sl->y] != 'E' || sl->map[sl->x][sl->y] != 'N' || sl->map[sl->x][sl->y] != 'C')
+				// return (0);
 			if (sl->map[sl->x][sl->y] == 'P')
 				sl->map_ally += 1;
-			else if (sl->map[sl->x][sl->y] == 'E')
+			if (sl->map[sl->x][sl->y] == 'E')
 				sl->map_exit += 1;
-			else if (sl->map[sl->x][sl->y] == 'C')
+			if (sl->map[sl->x][sl->y] == 'C')
 				sl->map_coll += 1;
 			sl->y += 1;
 		}

@@ -6,7 +6,7 @@
 /*   By: rdi-russ <rdi-russ@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 19:24:03 by rdi-russ          #+#    #+#             */
-/*   Updated: 2022/03/15 19:12:01 by rdi-russ         ###   ########.fr       */
+/*   Updated: 2022/03/21 16:38:32 by rdi-russ         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exit_loop(t_sl *sl)
 	return (0);
 }
 
-int	exit_if(t_sl *sl)
+void	exit_if(t_sl *sl)
 {
 	if (sl->cont2 == 2)
 	{
@@ -59,7 +59,6 @@ int	exit_if(t_sl *sl)
 				&sl->img_w, &sl->img_h);
 		sl->cont2 = 0;
 	}
-	return (0);
 }
 
 void	ft_initimage(t_sl *sl)
@@ -74,6 +73,6 @@ void	ft_initimage(t_sl *sl)
 
 void	ft_printenemy(t_sl *sl)
 {
-	sl->enemy = mlx_xpm_file_to_image(sl->mlx, "spritexpm/enemy.xpm",
+	sl->enemy = mlx_xpm_file_to_image(sl->mlx, "spritexpm/oryx_l.xpm",
 			&sl->img_w, &sl->img_h);
 }

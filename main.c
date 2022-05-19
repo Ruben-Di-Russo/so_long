@@ -6,7 +6,7 @@
 /*   By: rdi-russ <rdi-russ@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 15:31:54 by rdi-russ          #+#    #+#             */
-/*   Updated: 2022/03/15 21:12:30 by rdi-russ         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:08:15 by rdi-russ         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,17 @@ void	ft_printmap(t_sl *sl)
 	free(str);
 }
 
-int	lava_ani(t_sl *sl)
+int	loop(t_sl *sl)
 {
-	if (sl->loop++ < 2000)
+	if (sl->loop++ < 4000)
 		return (0);
 	sl->loop = 0;
 	if (sl->map_coll == 0)
 		exit_loop(sl);
-	mlx_destroy_image(sl->mlx, sl->lava);
-	if (sl->cont == 0)
-	{
-		sl->lava = mlx_xpm_file_to_image(sl->mlx, "spritexpm/lava2.xpm",
-				&sl->img_w, &sl->img_h);
-		sl->cont += 1;
-	}
-	else if (sl->cont == 1)
-	{
-		sl->lava = mlx_xpm_file_to_image(sl->mlx, "spritexpm/lava.xpm",
-				&sl->img_w, &sl->img_h);
-		sl->cont = 0;
-	}
+	lava_ani(sl);
+	enemy_move(sl);
 	ft_printmap(sl);
+	ft_end(sl);
 	return (0);
 }
 
@@ -55,36 +45,18 @@ void	ft_image(t_sl *sl, void *image, int x, int y)
 }
 
 int	key_hook(int keycode, t_sl *sl)
-{	
+{
 	if (keycode == 53)
-	{
 		ft_quit(sl);
-	}
 	else if (keycode == 13)
-	{
-		sl->movew = move_w(sl);
-		ft_printmap(sl);
-		if (sl->movew == 4)
-		{
-			usleep(1000000);
-			exit(0);
-		}
-	}
+		sl->moves = move_w(sl);
 	else if (keycode == 1)
-	{
-		move_s(sl);
-		ft_printmap(sl);
-	}
+		sl->moves = move_s(sl);
 	else if (keycode == 0)
-	{
-		move_a(sl);
-		ft_printmap(sl);
-	}
+		sl->moves = move_a(sl);
 	else if (keycode == 2)
-	{
-		move_d(sl);
-		ft_printmap(sl);
-	}
+		sl->moves = move_d(sl);
+	ft_printmap(sl);
 	return (0);
 }
 
@@ -93,10 +65,17 @@ int	main(int ac, char **av)
 	t_sl	sl;
 
 	sl.bho = ac;
+	sl.arg_check = ft_argcheck(av[1]);
+	if(!sl.arg_check)
+	{
+		ft_printf("errore\n");
+		exit(1);
+		return (0);
+	}
 	sl.map = ft_mapread(av[1], &sl);
 	if (sl.map)
 	{
-		check_game(&sl, av);
+		check_game(&sl);
 	}
 	if (&check_game)
 	{	
@@ -105,10 +84,12 @@ int	main(int ac, char **av)
 				sl.righe * 64, "REALM 2!!");
 		sl.cont = 0;
 		sl.loop = 0;
+		sl.loop2 = 0;
 		sl.move = 0;
+		sl.cont2 = 0;
 		ft_initimage(&sl);
 		ft_printmap(&sl);
-		mlx_loop_hook(sl.mlx, lava_ani, &sl);
+		mlx_loop_hook(sl.mlx, loop, &sl);
 		mlx_key_hook(sl.mlx_win, key_hook, &sl);
 		mlx_hook(sl.mlx_win, 17, 1L << 17, ft_quit, &sl);
 		mlx_loop(sl.mlx);
